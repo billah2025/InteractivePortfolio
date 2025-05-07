@@ -1,10 +1,10 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import forms from '@tailwindcss/forms';
+
+export default {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -38,12 +38,6 @@ module.exports = {
       }
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
-  safelist: [
-    'bg-primary-500/30',
-    'text-primary-900',
-    'dark:text-primary-100'
-  ]
+  darkMode: 'class',
+  plugins: [forms],
 }
