@@ -17,7 +17,7 @@ export default function Footer() {
           <div className="mb-4 md:mb-0">
             <div className="font-bold text-xl font-mono">
               <span className="text-primary-500">{'<'}</span>
-              Portfolio
+              M.B.siam
               <span className="text-primary-500">{'/>'}</span>
             </div>
           </div>
@@ -39,7 +39,7 @@ export default function Footer() {
 
           <div className="text-gray-600 dark:text-gray-400 text-sm text-center md:text-right">
             <p className="flex items-center justify-center md:justify-end gap-1">
-              Made with <FiHeart className="text-red-500" /> by John Developer
+              Made with <FiHeart className="text-red-500" /> by Motasim Billah siam
             </p>
             <p>© {currentYear} All Rights Reserved</p>
           </div>

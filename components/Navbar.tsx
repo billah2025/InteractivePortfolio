@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import ThemeToggle from './ThemeToggle'
 import useScrollSpy from '@/hooks/useScrollSpy'
-import { FiMenu, FiX } from 'react-icons/fi'
+import { FiMenu, FiX, FiHome, FiUser, FiCode, FiBriefcase, FiMail } from 'react-icons/fi'
 
 type NavbarProps = {
   theme: string;
@@ -11,11 +11,11 @@ type NavbarProps = {
 }
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '#home', icon: <FiHome /> },
+  { name: 'About', href: '#about', icon: <FiUser /> },
+  { name: 'Skills', href: '#skills', icon: <FiCode /> },
+  { name: 'Projects', href: '#projects', icon: <FiBriefcase /> },
+  { name: 'Contact', href: '#contact', icon: <FiMail /> },
 ]
 
 export default function Navbar({ theme, toggleTheme }: NavbarProps) {
@@ -68,9 +68,11 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 
-      ${isScrolled ? 'bg-white/90 dark:bg-dark-200/90 backdrop-blur-sm py-3 shadow-sm' : 'bg-transparent py-5'}`}
+      ${isScrolled 
+        ? 'bg-white/95 dark:bg-dark-200/95 backdrop-blur-md py-3 shadow-md' 
+        : 'bg-transparent py-4 sm:py-5'}`}
     >
-      <div className="container mx-auto px-5 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex justify-between items-center">
           <Link href="#home">
             <motion.div
@@ -80,27 +82,29 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               transition={{ duration: 0.5 }}
             >
               <span className="text-primary-500">{'<'}</span>
-              Portfolio
+              <span className="text-gray-800 dark:text-white">M.B.siam</span>
               <span className="text-primary-500">{'/>'}</span>
             </motion.div>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex space-x-6 lg:space-x-8">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+            <ul className="flex space-x-5 lg:space-x-7">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Link href={link.href}>
                     <span 
-                      className={`hover:text-primary-500 transition-colors relative cursor-pointer ${
-                        activeSection === link.href.substring(1) ? 'text-primary-500' : 'text-gray-700 dark:text-gray-300'
+                      className={`hover:text-primary-500 transition-colors relative cursor-pointer text-sm lg:text-base font-medium flex items-center gap-1.5 
+                      ${activeSection === link.href.substring(1) 
+                        ? 'text-primary-500' 
+                        : 'text-gray-700 dark:text-gray-300'
                       }`}
                       onClick={handleNavClick}
                     >
                       {link.name}
                       {activeSection === link.href.substring(1) && (
                         <motion.div 
-                          className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary-500"
+                          className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-primary-500"
                           layoutId="activeSection"
                           transition={{ type: "spring", stiffness: 380, damping: 30 }}
                         />
@@ -110,6 +114,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 </li>
               ))}
             </ul>
+            <div className="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-1"></div>
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
 
@@ -118,10 +123,10 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             <button
               onClick={toggleMenu}
-              className="ml-4 p-1 rounded-md text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500 hover:bg-gray-100 dark:hover:bg-dark-100 transition-colors"
+              className="ml-3 p-2 rounded-full text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500 hover:bg-gray-100 dark:hover:bg-dark-100 transition-all"
               aria-label="Toggle Menu"
             >
-              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
             </button>
           </div>
         </nav>
@@ -131,7 +136,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-white dark:bg-dark-200 z-40 pt-20"
+            className="fixed inset-0 bg-white/98 dark:bg-dark-200/98 backdrop-blur-md z-40 pt-16"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
@@ -140,14 +145,14 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             {/* Mobile Close Button (Fixed Position) */}
             <button
               onClick={toggleMenu}
-              className="absolute top-6 right-6 p-2 rounded-full bg-gray-100 dark:bg-dark-100 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500 transition-colors"
+              className="absolute top-4 right-4 p-2.5 rounded-full bg-gray-100 dark:bg-dark-100 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500 transition-all shadow-md"
               aria-label="Close Menu"
             >
-              <FiX size={24} />
+              <FiX size={20} />
             </button>
             
             <motion.ul 
-              className="flex flex-col items-center pt-10"
+              className="flex flex-col items-center justify-center h-full gap-4 -mt-16"
               initial="closed"
               animate="open"
               exit="closed"
@@ -163,7 +168,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               {navLinks.map((link) => (
                 <motion.li 
                   key={link.name}
-                  className="w-full border-b border-gray-100 dark:border-dark-100"
+                  className="w-full"
                   variants={{
                     open: { opacity: 1, y: 0 },
                     closed: { opacity: 0, y: -10 }
@@ -171,12 +176,21 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 >
                   <Link href={link.href}>
                     <div 
-                      className={`text-center py-5 text-xl font-medium hover:text-primary-500 transition-colors ${
-                        activeSection === link.href.substring(1) ? 'text-primary-500' : 'text-gray-700 dark:text-gray-300'
+                      className={`text-center py-4 text-xl font-medium hover:text-primary-500 transition-all flex flex-col items-center gap-1
+                      ${activeSection === link.href.substring(1) 
+                        ? 'text-primary-500 scale-110' 
+                        : 'text-gray-700 dark:text-gray-300'
                       }`}
                       onClick={handleNavClick}
                     >
+                      <span className="text-2xl mb-1">{link.icon}</span>
                       {link.name}
+                      {activeSection === link.href.substring(1) && (
+                        <motion.div 
+                          className="h-1 w-8 bg-primary-500 rounded-full mt-1"
+                          layoutId="activeMobileSection"
+                        />
+                      )}
                     </div>
                   </Link>
                 </motion.li>
