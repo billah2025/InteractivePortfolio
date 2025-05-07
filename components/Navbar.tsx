@@ -136,7 +136,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-white/98 dark:bg-dark-200/98 backdrop-blur-md z-40 pt-16"
+            className="fixed inset-0 bg-gradient-to-b from-white/98 to-blue-50/95 dark:from-dark-200/98 dark:to-dark-300/95 backdrop-blur-md z-40 pt-16 overflow-y-auto"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
@@ -145,57 +145,45 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             {/* Mobile Close Button (Fixed Position) */}
             <button
               onClick={toggleMenu}
-              className="absolute top-4 right-4 p-2.5 rounded-full bg-gray-100 dark:bg-dark-100 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500 transition-all shadow-md"
+              className="fixed top-4 right-4 p-2.5 rounded-full bg-white dark:bg-dark-100 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500 transition-all shadow-md"
               aria-label="Close Menu"
             >
               <FiX size={20} />
             </button>
             
-            <motion.ul 
-              className="flex flex-col items-center justify-center h-full gap-4 -mt-16"
-              initial="closed"
-              animate="open"
-              exit="closed"
-              variants={{
-                open: {
-                  transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-                },
-                closed: {
-                  transition: { staggerChildren: 0.05, staggerDirection: -1 }
-                }
-              }}
-            >
-              {navLinks.map((link) => (
-                <motion.li 
-                  key={link.name}
-                  className="w-full"
-                  variants={{
-                    open: { opacity: 1, y: 0 },
-                    closed: { opacity: 0, y: -10 }
-                  }}
-                >
-                  <Link href={link.href}>
-                    <div 
-                      className={`text-center py-4 text-xl font-medium hover:text-primary-500 transition-all flex flex-col items-center gap-1
-                      ${activeSection === link.href.substring(1) 
-                        ? 'text-primary-500 scale-110' 
-                        : 'text-gray-700 dark:text-gray-300'
-                      }`}
-                      onClick={handleNavClick}
-                    >
-                      <span className="text-2xl mb-1">{link.icon}</span>
-                      {link.name}
-                      {activeSection === link.href.substring(1) && (
-                        <motion.div 
-                          className="h-1 w-8 bg-primary-500 rounded-full mt-1"
-                          layoutId="activeMobileSection"
-                        />
-                      )}
-                    </div>
-                  </Link>
-                </motion.li>
-              ))}
-            </motion.ul>
+            <div className="min-h-[100vh] py-12 flex items-center justify-center">
+              <ul className="flex flex-col items-center gap-6 px-4 py-8 max-w-sm mx-auto">
+                {navLinks.map((link) => (
+                  <motion.li 
+                    key={link.name}
+                    className="w-full"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Link href={link.href}>
+                      <div 
+                        className={`text-center py-4 text-xl font-medium hover:text-primary-500 transition-all flex flex-col items-center gap-1
+                        ${activeSection === link.href.substring(1) 
+                          ? 'text-primary-500 scale-110' 
+                          : 'text-gray-700 dark:text-gray-300'
+                        }`}
+                        onClick={handleNavClick}
+                      >
+                        <span className="text-2xl mb-1">{link.icon}</span>
+                        {link.name}
+                        {activeSection === link.href.substring(1) && (
+                          <motion.div 
+                            className="h-1 w-8 bg-primary-500 rounded-full mt-1"
+                            layoutId="activeMobileSection"
+                          />
+                        )}
+                      </div>
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
