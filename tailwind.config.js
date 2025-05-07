@@ -38,5 +38,12 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
+  safelist: [
+    'bg-primary-500/30',
+    'text-primary-900',
+    'dark:text-primary-100'
+  ]
 }

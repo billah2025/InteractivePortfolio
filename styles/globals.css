@@ -50,27 +50,61 @@ body {
 
 /* Selection color */
 ::selection {
-  @apply bg-primary-500/30 text-primary-900 dark:text-primary-100;
+  background-color: rgba(14, 165, 233, 0.3);
+  color: #0c4a6e;
+}
+
+.dark ::selection {
+  color: #e0f2fe;
 }
 
 /* Better focus styles */
 :focus-visible {
-  @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-dark-300;
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0ea5e9;
+}
+
+.dark :focus-visible {
+  box-shadow: 0 0 0 2px #020617, 0 0 0 4px #0ea5e9;
 }
 
 /* Container utilities */
 .container {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  max-width: 80rem; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem; /* px-4 */
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem; /* sm:px-6 */
+    padding-right: 1.5rem; /* sm:px-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem; /* lg:px-8 */
+    padding-right: 2rem; /* lg:px-8 */
+  }
 }
 
 /* Transition utilities */
 .transition-all {
-  @apply transition-all duration-300 ease-in-out;
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Hover utilities */
 .hover-scale {
-  @apply transition-transform duration-300 hover:scale-105;
+  transition-property: transform;
+  transition-duration: 300ms;
+}
+.hover-scale:hover {
+  transform: scale(1.05);
 }
 
 /* Custom animation utilities */
@@ -80,12 +114,14 @@ body {
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 /* Gradient text */
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-purple-600;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #0ea5e9, #a855f7);
 }
 
 /* Prevent overflow issues */
