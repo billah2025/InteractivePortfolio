@@ -6,6 +6,14 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
+    screens: {
+      'xs': '480px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
@@ -35,7 +43,16 @@ module.exports = {
       },
       transitionDuration: {
         '2000': '2000ms',
-      }
+      },
+      spacing: {
+        '18': '4.5rem',
+        '68': '17rem',
+        '84': '21rem',
+        '88': '22rem',
+        '92': '23rem',
+        '128': '32rem',
+        '144': '36rem',
+      },
     },
   },
   plugins: [

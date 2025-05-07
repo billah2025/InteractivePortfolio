@@ -137,6 +137,15 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
+            {/* Mobile Close Button (Fixed Position) */}
+            <button
+              onClick={toggleMenu}
+              className="absolute top-6 right-6 p-2 rounded-full bg-gray-100 dark:bg-dark-100 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500 transition-colors"
+              aria-label="Close Menu"
+            >
+              <FiX size={24} />
+            </button>
+            
             <motion.ul 
               className="flex flex-col items-center pt-10"
               initial="closed"

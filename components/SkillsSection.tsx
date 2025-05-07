@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import SectionHeading from './SectionHeading'
 import { fadeIn, fadeInUp, staggerContainer } from '@/utils/animation'
 import { FiCode, FiDatabase, FiLayout, FiServer, FiTool } from 'react-icons/fi'
 
 type SkillCategory = {
-  icon: JSX.Element;
+  icon: React.ReactNode;
   name: string;
   skills: { name: string; proficiency: number }[];
 }
@@ -72,7 +72,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="py-20 px-6 bg-white dark:bg-dark-300">
+    <section id="skills" className="py-16 sm:py-20 px-4 sm:px-6 bg-white dark:bg-dark-300">
       <div className="container mx-auto">
         <SectionHeading title="Skills" subtitle="My Technical Level" />
 
@@ -81,33 +81,33 @@ export default function SkillsSection() {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.2 }}
-          className="mt-16"
+          className="mt-12 sm:mt-16"
         >
           <motion.div 
             variants={fadeIn}
-            className="flex flex-wrap justify-center gap-3 mb-12"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12"
           >
             {skillCategories.map((category, index) => (
               <motion.button
                 key={index}
                 onClick={() => setActiveCategory(index)}
-                className={`px-6 py-3 rounded-full font-medium flex items-center gap-2 transition-all
+                className={`px-3 py-2 sm:px-4 md:px-6 md:py-3 rounded-full text-sm sm:text-base font-medium flex items-center gap-1 sm:gap-2 transition-all
                   ${activeCategory === index
                     ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/20'
                     : 'bg-gray-100 dark:bg-dark-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-200'
                   }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
               >
-                {category.icon}
-                {category.name}
+                <span className="text-base sm:text-lg md:text-xl">{category.icon}</span>
+                <span className="hidden xs:inline">{category.name}</span>
               </motion.button>
             ))}
           </motion.div>
 
           <motion.div 
             variants={fadeInUp}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
           >
             {skillCategories[activeCategory].skills.map((skill, index) => (
               <motion.div
@@ -115,15 +115,15 @@ export default function SkillsSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-50 dark:bg-dark-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="bg-gray-50 dark:bg-dark-200 p-4 sm:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className="font-medium text-lg">{skill.name}</h3>
-                  <span className="text-primary-500 font-medium">{skill.proficiency}%</span>
+                <div className="flex justify-between items-center mb-2 sm:mb-3">
+                  <h3 className="font-medium text-base sm:text-lg">{skill.name}</h3>
+                  <span className="text-primary-500 font-medium text-sm sm:text-base">{skill.proficiency}%</span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-dark-100 rounded-full h-2.5">
+                <div className="w-full bg-gray-200 dark:bg-dark-100 rounded-full h-2 sm:h-2.5">
                   <motion.div
-                    className="bg-primary-500 h-2.5 rounded-full"
+                    className="bg-primary-500 h-full rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${skill.proficiency}%` }}
                     transition={{ duration: 1, delay: 0.3 + index * 0.1 }}
